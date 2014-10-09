@@ -1,3 +1,5 @@
+package HoleList;
+
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -26,7 +28,7 @@ import java.io.RandomAccessFile;
 	   * Inicializa un registro con valores predeterminados. Concretamente inicializa el campo de control a ocupado y numReg a 0
 	   */
 	   public RegistroNumReg(){
-		   super();
+		   super();	
 		   this.setNumReg( 0 );
 	   }
 	
@@ -75,7 +77,6 @@ import java.io.RandomAccessFile;
        * @param archivo Archivo fisico sobre el que se escribir el contenido de este registro.
        * @throws IOException Si se produce un error al realizar la operacion.
        * @see RegistroLH
-
        */
        public void escribir(RandomAccessFile archivo) throws IOException {
     	   super.escribir(archivo);
