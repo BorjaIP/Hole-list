@@ -33,6 +33,7 @@ import java.io.IOException;
        */
        public ArchivoLH (RegistroLH registro, String nombreArchivo, String modo)throws FileNotFoundException
 	   {
+    	   super(registro, nombreArchivo, modo);
 	   } 
 
        
@@ -54,6 +55,7 @@ import java.io.IOException;
        */
        public ArchivoLH (RegistroLH registro, String nombreArchivo)throws FileNotFoundException
        {
+    	   super(registro, nombreArchivo);
        }
 	 
 
@@ -67,6 +69,14 @@ import java.io.IOException;
        * @see RegistroLH
        */
        public void leerRegistro(int posicion) throws IOException {
+    	   
+    	   if((posicion>this.numRegistros())||(posicion<1)){
+    		   this.archivo.seek(this.archivo.length()-this.registro.longitudRegistro());
+    	   }
+    	   else {
+    		   this.archivo.seek(posicion*this.registro.longitudRegistro());
+    	   }
+    	   this.registro.leer(this.archivo);
        }
        
 
@@ -102,6 +112,7 @@ import java.io.IOException;
        * @see RegistroLH
        */
 	   public int escribirRegistro() throws IOException {
+		   
 	   }	
 	
 	   
@@ -125,6 +136,11 @@ import java.io.IOException;
        * @param posicion numero que indica la posicion del registro a borrar.
        */
 	   public void borrarRegistro(int posicion) throws IOException {
+		   
+		   if ((posicion<this.numRegistros()) && (posicion>1))			//Falta saber si registro está no ocupado.
+		   {
+			   
+		   }
 	   }	
 	
 		
@@ -135,6 +151,7 @@ import java.io.IOException;
 	   * @throws IOException Si se produce un error al realizar la operacion.
 	   */
 	   public long numRegistros() throws IOException {
+	       return this.archivo.length();				//Revisar, está sacado de Archivo.
 	   }
 	
 	   
