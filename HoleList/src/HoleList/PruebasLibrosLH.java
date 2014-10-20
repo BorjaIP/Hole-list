@@ -85,30 +85,54 @@ import java.io.IOException;
 		     * 	- constructor de ArchivoLH que CREA el fichero. Situaciones:
 		     * 		- el fichero no existe. Validar que lo crea y que el archivo contiene el registro 0 completo (con todos los
 		     *        campos de un registro de tipo RegistroLibro) y con el campo control a -1.
+		     *        
+		     *        
 		     *      - el fichero existe. Validar que borra su contenido y que el archivo contiene el registro 0 completo (con todos los
 		     *        campos de un registro de tipo RegistroLibro) y con el campo control a -1.
+		     *        
+		     *        
 		     *  - constructor de ArchivoLH que ABRE el fichero. Situaciones:
 		     *  	- El fichero de registros existe. Validar que su contenido es exactamente el mismo que la ultima vez que 
 		     *        se trabajo con el.
+		     *        
+		     *        
 		     *      - El fichero de registros no existe. Debe saltar la excepcion FileNotFoundException que debera capturarse e
-		     *        indicar por la consola esta situacion mediante un mensaje de error
+		     *        indicar por la consola esta situacion mediante un mensaje de error.
+		     *        
+		     *        
 		     *  - escribirRegistro. Situaciones:
 		     *      - La lista de huecos esta vacia. Validar que el registro se ha incluido como ultimo registro del fichero y que
-		     *        el valor devuelto por el metodo es correcto
+		     *        el valor devuelto por el metodo es correcto.
+		     *        
+		     *        
 		     *      - La lista de huecos NO esta vacia. Validar que el registro se ha incluido en la posicion indicada por la
 		     *        cabecera de la lista de huecos y que esta se ha actualizado convenientemente. Ademas, debera comprobarse que 
 		     *        el valor devuelto por el metodo es correcto.
+		     *        
+		     *        
 		     *  - leerRegistro. Situaciones:
 		     *  	- leer el registro 0. Validar que los datos que devuelve son del ultimo registro del fichero.
+		     *  
+		     *  
 		     *      - leer un registro que se encuentre en una posicion superior al numero de registros del fichero. Validar que 
 		     *        los datos que devuelve son del ultimo registro del fichero.
+		     *        
+		     *        
 		     *      - leer un registro que se encuentre en una posicion valida.  Validar que los datos que devuelve son los asociados
-		     *        al registro almacenado en la posicion indicada
+		     *        al registro almacenado en la posicion indicada.
+		     *        
+		     *        
 		     *  - borrarRegistro. Situaciones:
 		     *      - borrar el registro 0. Validar que no tiene ningun efecto sobre el fichero.
+		     *      
+		     *      
 		     *      - borrar un registro que se encuentre en una posicion superior al numero de registros del fichero.Validar que no 
 		     *        tiene ningun efecto sobre el fichero.
+		     *        
+		     *        
 		     *      - borrar un registro que se encuentre en la lista de huecos. Validar que no tiene ningun efecto sobre el fichero.
+		     *      
+		     *      
 		     *      - borrar un registro que se encuentre en una posicion valida y que contenga informacion util (que no esta en la
 		     *        lista de huecos).
 		     *         

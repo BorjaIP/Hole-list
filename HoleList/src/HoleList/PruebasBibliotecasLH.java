@@ -176,7 +176,7 @@ import java.io.IOException;
 			   
 		   }
 		   catch (IOException ioe){
-				System.out.println("Error de entrada/salida sobre los archivos: "+ ioe.getMessage());
+				System.out.println("Error de entrada/salida sobre archivoLibros: "+ ioe.getMessage());
 		   }
 	   }
 	
