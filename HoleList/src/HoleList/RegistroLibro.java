@@ -33,7 +33,7 @@ import java.io.RandomAccessFile;
 	   */
 	   public RegistroLibro() 
 	   {
-		   super();
+		   super(-2, 0);
 		   this.setTitulo("");
 		   this.setTipo("");
 		   this.setNumPaginas(0);
@@ -50,7 +50,7 @@ import java.io.RandomAccessFile;
 	   */
 	   public RegistroLibro( int numReg, String titulo, String tipo, int numPaginas )
 	   {
-		   super();
+		   super(-2, numReg);
 		   this.setTitulo(titulo);
 		   this.setTipo(tipo);
 		   this.setNumPaginas(numPaginas);

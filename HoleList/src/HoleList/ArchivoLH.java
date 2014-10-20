@@ -55,7 +55,14 @@ import java.io.IOException;
        */
        public ArchivoLH (RegistroLH registro, String nombreArchivo)throws FileNotFoundException
        {
-    	   super(registro, nombreArchivo);
+   		super(registro, nombreArchivo);
+   		registro.setControl(-1); //Decimos que el control pertenece a la lista de huecos
+   		try {
+   			super.escribirRegistro(0);
+   		} catch (IOException error) { //Catch de StackOverflow
+   			System.out.println("General I/O exception: " + error.getMessage());
+   			error.printStackTrace();
+   		}
        }
 	 
 
@@ -70,7 +77,7 @@ import java.io.IOException;
        */
        public void leerRegistro(int posicion) throws IOException {
     	   
-    	   if((posicion>this.numRegistros())||(posicion<1)){
+    	   if((posicion>this.numRegistros()) || (posicion<1)){
     		   this.archivo.seek(this.archivo.length()-this.registro.longitudRegistro());
     	   }
     	   else {
@@ -112,7 +119,22 @@ import java.io.IOException;
        * @see RegistroLH
        */
 	   public int escribirRegistro() throws IOException {
-		   
+			super.archivo.seek(0);
+			int cabeceraLH = super.archivo.readInt();
+
+			if(cabeceraLH != -1) //Fin de lista
+			{
+				super.archivo.seek(cabeceraLH*super.registro.longitudRegistro());
+				int cabeceraLHAnterior = super.archivo.readInt();
+				super.archivo.seek(0);
+				super.archivo.writeInt(cabeceraLHAnterior);
+			}
+			else
+				cabeceraLH = (int) this.numRegistros() + 1; 
+
+			super.archivo.seek(cabeceraLH*super.registro.longitudRegistro()); //Para posicionarnos en el control de donde queremos escribir
+			registro.escribir(archivo);
+			return (int) cabeceraLH; //Devuelve donde has escrito
 	   }	
 	
 	   
@@ -136,11 +158,19 @@ import java.io.IOException;
        * @param posicion numero que indica la posicion del registro a borrar.
        */
 	   public void borrarRegistro(int posicion) throws IOException {
-		   
-		   if ((posicion<this.numRegistros()) && (posicion>1))			//Falta saber si registro está no ocupado.
-		   {
-			   
-		   }
+			if(!(posicion < 1 || posicion > this.numRegistros())){
+				super.archivo.seek(posicion*super.registro.longitudRegistro());
+				int cabeceraPosicion = archivo.readInt();
+				if(cabeceraPosicion == -2)//Si no es -2, ya esta borrado
+				{
+					super.archivo.seek(0);
+					int cabeceraLH = archivo.readInt();
+					super.archivo.seek(0);
+					super.archivo.writeInt(posicion);
+					super.archivo.seek(posicion*super.registro.longitudRegistro());
+					super.archivo.writeInt(cabeceraLH);
+				}
+			}
 	   }	
 	
 		
@@ -151,7 +181,7 @@ import java.io.IOException;
 	   * @throws IOException Si se produce un error al realizar la operacion.
 	   */
 	   public long numRegistros() throws IOException {
-	       return this.archivo.length();				//Revisar, está sacado de Archivo.
+			return (archivo.length()/super.registro.longitudRegistro())-1; // -1 porque no debe contabilizar el registro 0
 	   }
 	
 	   

@@ -14,7 +14,9 @@ Clase que representa un registro de campos asociados a una biblioteca.
 	 /** 
 	   * Numero de caracteres del campo <code>nombre</code>.
 	   */
-	   public static final int TAMANIO_NOMBRE = 25;		
+	   public static final int TAMANIO_NOMBRE = 25;
+	   private static final int TAMANIO_CODPOSTAL = (Integer.SIZE/8) ;
+	   private static final int TAMANIO_CAPACIDAD = (Integer.SIZE/8) ;
 	   private String nombre;
 	   private int codPostal;
 	   private int capacidad;
@@ -24,10 +26,10 @@ Clase que representa un registro de campos asociados a una biblioteca.
 	   */
 	   public RegistroBiblioteca() 
 	   {
-		   super();
-		   this.nombre="";
-		   this.codPostal=0;
-		   this.capacidad=0;
+		   super(-2, 0);
+		   this.setNombre(" ");
+		   this.setCodPostal(0);
+		   this.setCapacidad(0);
 	   }
 
 	 /** 
@@ -40,8 +42,7 @@ Clase que representa un registro de campos asociados a una biblioteca.
 	   */
 	   public RegistroBiblioteca( int numReg, String nombre, int codPostal, int capacidad )
 	   {
-		   super();
-		   super.setNumReg(numReg);
+		   super(-2, numReg);
 		   this.setNombre(nombre);
 		   this.setCodPostal(codPostal);
 		   this.setCapacidad(capacidad);
@@ -114,7 +115,7 @@ Clase que representa un registro de campos asociados a una biblioteca.
 	   */	
 	   public int longitudRegistro()
 	   {
-		   return super.longitudRegistro() + RegistroBiblioteca.TAMANIO_NOMBRE;
+		   return super.longitudRegistro() + RegistroBiblioteca.TAMANIO_NOMBRE*2 + RegistroBiblioteca.TAMANIO_CODPOSTAL + RegistroBiblioteca.TAMANIO_CAPACIDAD;
 	   } 
 	   
   
@@ -126,7 +127,10 @@ Clase que representa un registro de campos asociados a una biblioteca.
 	   * @see RegistroNumReg
 	   */
 	   public void escribir(RandomAccessFile archivo) throws IOException {
-		   super.escribirCadena(this.toString() , this.longitudRegistro(), archivo);
+		   super.escribir(archivo);
+		   this.escribirCadena(this.getNombre(), RegistroBiblioteca.TAMANIO_NOMBRE, archivo);
+		   archivo.writeInt(this.getCodPostal());
+		   archivo.writeInt(this.getCapacidad());
 	   }
 
 	   
@@ -136,7 +140,10 @@ Clase que representa un registro de campos asociados a una biblioteca.
 	   * @see RegistroNumReg
 	   */
 	   public void leer(RandomAccessFile archivo) throws IOException {
-		   super.leerCadena(this.longitudRegistro(), archivo);
+		   super.leer(archivo);
+		   this.setNombre(this.leerCadena(RegistroBiblioteca.TAMANIO_NOMBRE, archivo));
+		   this.setCodPostal(archivo.readInt());
+		   this.setCapacidad(archivo.readInt());
 	   }
 
 	   
@@ -147,7 +154,7 @@ Clase que representa un registro de campos asociados a una biblioteca.
 	   */
 	   public String toString()
 	   {
-		   return "RegistroLibro  [control="+super.getControl()+", numReg="+this.getNumReg()+", nombre="+this.getNombre()+", codPostal="+this.getCodPostal()+", capacidad="+this.getCapacidad()+"]";
+		   return "RegistroLibro  [control="+this.getControl()+", numReg="+this.getNumReg()+", nombre="+this.getNombre()+", codPostal="+this.getCodPostal()+", capacidad="+this.getCapacidad()+"]";
 	   }
 
 }
