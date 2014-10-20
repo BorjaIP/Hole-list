@@ -26,8 +26,8 @@ Clase que representa un registro de campos asociados a una biblioteca.
 	   */
 	   public RegistroBiblioteca() 
 	   {
-		   super(-2, 0);
-		   this.setNombre(" ");
+		   super(RegistroLH.REGISTRO_OCUPADO, 0);
+		   this.setNombre("");
 		   this.setCodPostal(0);
 		   this.setCapacidad(0);
 	   }
@@ -42,7 +42,7 @@ Clase que representa un registro de campos asociados a una biblioteca.
 	   */
 	   public RegistroBiblioteca( int numReg, String nombre, int codPostal, int capacidad )
 	   {
-		   super(-2, numReg);
+		   super(RegistroLH.REGISTRO_OCUPADO, numReg);
 		   this.setNombre(nombre);
 		   this.setCodPostal(codPostal);
 		   this.setCapacidad(capacidad);
@@ -55,7 +55,7 @@ Clase que representa un registro de campos asociados a una biblioteca.
 	   */
 	   public void setNombre( String nombre )
 	   {
-		   this.nombre=nombre;
+		   this.nombre = nombre;
 	   }
 
 	   
@@ -75,7 +75,7 @@ Clase que representa un registro de campos asociados a una biblioteca.
       */
 	   public void setCodPostal( int codPostal )
 	   {
-		   this.codPostal=codPostal;
+		   this.codPostal = codPostal;
 	   }
 
 	   
@@ -95,7 +95,7 @@ Clase que representa un registro de campos asociados a una biblioteca.
 	   */
 	   public void setCapacidad( int capacidad )
 	   {
-		   this.capacidad=capacidad;
+		   this.capacidad = capacidad;
 	   }
 
 	   
@@ -115,7 +115,7 @@ Clase que representa un registro de campos asociados a una biblioteca.
 	   */	
 	   public int longitudRegistro()
 	   {
-		   return super.longitudRegistro() + RegistroBiblioteca.TAMANIO_NOMBRE*2 + RegistroBiblioteca.TAMANIO_CODPOSTAL + RegistroBiblioteca.TAMANIO_CAPACIDAD;
+		   return RegistroBiblioteca.TAMANIO_NOMBRE*2 + RegistroBiblioteca.TAMANIO_CODPOSTAL + RegistroBiblioteca.TAMANIO_CAPACIDAD + super.longitudRegistro();
 	   } 
 	   
   
@@ -154,7 +154,6 @@ Clase que representa un registro de campos asociados a una biblioteca.
 	   */
 	   public String toString()
 	   {
-		   return "RegistroLibro  [control="+this.getControl()+", numReg="+this.getNumReg()+", nombre="+this.getNombre()+", codPostal="+this.getCodPostal()+", capacidad="+this.getCapacidad()+"]";
+		   return "RegistroLibro [control=" + this.getControl() + ", numReg=" + this.getNumReg() + ", nombre=" + this.getNombre() + ", codPostal=" + this.getCodPostal() + ", capacidad=" + this.getCapacidad() + "]";
 	   }
-
 }

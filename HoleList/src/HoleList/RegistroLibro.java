@@ -1,6 +1,5 @@
 package HoleList;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -23,7 +22,7 @@ import java.io.RandomAccessFile;
 	   */
 	   public static final int TAMANIO_TIPO = 25; 
 	    
-	   //Inicializacion de las variables
+	   //Inicialización de las variables.
 	   private String titulo;
 	   private String tipo;
 	   private int numPaginas;
@@ -33,7 +32,7 @@ import java.io.RandomAccessFile;
 	   */
 	   public RegistroLibro() 
 	   {
-		   super(-2, 0);
+		   super(RegistroLH.REGISTRO_OCUPADO, 0);
 		   this.setTitulo("");
 		   this.setTipo("");
 		   this.setNumPaginas(0);
@@ -50,7 +49,7 @@ import java.io.RandomAccessFile;
 	   */
 	   public RegistroLibro( int numReg, String titulo, String tipo, int numPaginas )
 	   {
-		   super(-2, numReg);
+		   super(RegistroLH.REGISTRO_OCUPADO, numReg);
 		   this.setTitulo(titulo);
 		   this.setTipo(tipo);
 		   this.setNumPaginas(numPaginas);
@@ -63,7 +62,7 @@ import java.io.RandomAccessFile;
 	   */
 	   public void setTitulo( String titulo )
 	   {
-		   this.titulo=titulo;
+		   this.titulo = titulo;
 	   }
 
 	   
@@ -83,7 +82,7 @@ import java.io.RandomAccessFile;
        */
 	   public void setTipo( String tipo )
 	   {
-		   this.tipo=tipo;
+		   this.tipo = tipo;
 	   }
 
 	   
@@ -103,7 +102,7 @@ import java.io.RandomAccessFile;
 	   */
 	   public void setNumPaginas( int numPaginas )
 	   {
-		   this.numPaginas=numPaginas;
+		   this.numPaginas = numPaginas;
 	   }
 
 	   
@@ -123,7 +122,7 @@ import java.io.RandomAccessFile;
 	   */	
 	   public int longitudRegistro()
 	   {
-		   return RegistroLibro.TAMANIO_TIPO + RegistroLibro.TAMANIO_TITULO + super.longitudRegistro();
+		   return RegistroLibro.TAMANIO_TITULO*2 + RegistroLibro.TAMANIO_TIPO*2 + super.longitudRegistro();
 	   } 
 	   
    
@@ -135,7 +134,10 @@ import java.io.RandomAccessFile;
 	   * @see RegistroNumReg
 	   */
 	   public void escribir(RandomAccessFile archivo) throws IOException {
-		   super.escribirCadena(this.toString() , this.longitudRegistro(), archivo);
+		   super.escribir(archivo);
+    	   this.escribirCadena(this.getTitulo(), RegistroLibro.TAMANIO_TITULO, archivo);
+    	   this.escribirCadena(this.getTipo(), RegistroLibro.TAMANIO_TIPO, archivo);
+		   archivo.writeInt(this.getNumPaginas());
 	   }
 
 	   
@@ -145,7 +147,10 @@ import java.io.RandomAccessFile;
 	   * @see RegistroNumReg
 	   */
 	   public void leer(RandomAccessFile archivo) throws IOException {	
-		   super.leerCadena(this.longitudRegistro(), archivo);
+		   super.leer(archivo);    	   
+    	   this.setTitulo(this.leerCadena(RegistroLibro.TAMANIO_TITULO, archivo));
+    	   this.setTipo(this.leerCadena(RegistroLibro.TAMANIO_TIPO, archivo));
+    	   this.setNumPaginas(archivo.readInt());
 	   }
 
 	   
@@ -156,7 +161,6 @@ import java.io.RandomAccessFile;
 	   */
 	   public String toString()
 	   {
-		   return "RegistroLibro  [control="+super.getControl()+", numReg="+this.getNumReg()+", titulo="+this.getTitulo()+", tipo="+this.getTipo()+", numero paginas="+this.getNumPaginas()+"]"; 
+		   return "RegistroLibro [control=" + this.getControl() + ", numReg=" + this.getNumReg() + ", titulo=" + this.getTitulo() + ", tipo=" + this.getTipo() + ", numero paginas=" + this.getNumPaginas() + "]"; 
 	   }
-	   
   }

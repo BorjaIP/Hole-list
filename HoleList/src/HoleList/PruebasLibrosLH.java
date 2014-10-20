@@ -1,7 +1,6 @@
 package HoleList;
 
 import java.io.IOException;
-import java.io.FileNotFoundException;
 
  
 /** Esta clase se debera encargar de probar y validar el funcionamiento completo de las clases implementadas.

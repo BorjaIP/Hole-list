@@ -1,7 +1,6 @@
 package HoleList;
 
 import java.io.IOException;
-import java.io.FileNotFoundException;
  
 
 /** Esta clase se debera encargar de probar y validar el funcionamiento completo de las clases implementadas.
@@ -83,101 +82,102 @@ import java.io.FileNotFoundException;
 			   //Creamos el fichero en blanco, sin registros.
 			   RegistroBiblioteca R = new RegistroBiblioteca();
 			   ArchivoLH archivoBibliotecas= new ArchivoLH(R,"bibliotecas.dat");
-			   //Creamos un archivo sin modificarlo.
+			   //Creamos y abrimos el fichero sin modificarlo.
 			   //ArchivoLH archivoBibliotecas= new ArchivoLH(R,"bibliotecas.dat","r");
-			   System.out.println("Intento de leer el primer registro: ");
+			   System.out.println("\t\tVolcando el contenido del archivo");
+			   System.out.println();
 			   archivoBibliotecas.volcar();
-			   System.out.println("**********************************************************");
+			   System.out.println();
 			   
-			   //Creamos el primer registro para escribir.
+			   //Creamos el primer registro.
 			   RegistroBiblioteca registro1 = new RegistroBiblioteca(10,"Vallecas",28030,100);
 			   registro1.setControl(RegistroLH.REGISTRO_OCUPADO);
 			   archivoBibliotecas.setRegistro(registro1);
 			   archivoBibliotecas.escribirRegistro();
-			   System.out.println("Volcado, añadiendo primer registro: ");
+			   System.out.println("\t\tVolcando registro 1");
+			   System.out.println();
 			   archivoBibliotecas.volcar();
-			   System.out.println("**********************************************************");
+			   System.out.println();
 			   
 			   //Creamos otros dos registros para probar que la lista no está vacia.
 			   RegistroBiblioteca registro2 = new RegistroBiblioteca(40,"Ciudad Lineal",28015,175);
 			   registro2.setControl(RegistroLH.REGISTRO_OCUPADO);
 			   archivoBibliotecas.setRegistro(registro2);
 			   archivoBibliotecas.escribirRegistro();
-			   System.out.println("Volcado, añadiendo otro registro: ");
+			   System.out.println("\t\tVolcado registro 2");
+			   System.out.println();
 			   archivoBibliotecas.volcar();
-			   System.out.println("**********************************************************");
+			   System.out.println();
 			   
-			   RegistroBiblioteca registro6 = new RegistroBiblioteca(20,"Goya",28001,250);
+			   RegistroBiblioteca registro3 = new RegistroBiblioteca(20,"Goya",28001,250);
 			   registro2.setControl(RegistroLH.REGISTRO_OCUPADO);
-			   archivoBibliotecas.setRegistro(registro6);
+			   archivoBibliotecas.setRegistro(registro3);
 			   archivoBibliotecas.escribirRegistro();
-			   System.out.println("Volcado, añadiendo otro registro: ");
+			   System.out.println("\t\tVolcado registro 3");
+			   System.out.println();
 			   archivoBibliotecas.volcar();
-			   System.out.println("**********************************************************");
+			   System.out.println();
 			   
 			   //Leemos el registro 0.
 			   archivoBibliotecas.leerRegistro(0);
-			   RegistroBiblioteca registro3 = (RegistroBiblioteca)archivoBibliotecas.getRegistro();
-			   System.out.println("Datos registro 0: ");
-			   System.out.println(registro3.toString());
-			   System.out.println("**********************************************************");
+			   RegistroBiblioteca registro4 = (RegistroBiblioteca)archivoBibliotecas.getRegistro();
+			   System.out.println("Datos del registro 0: ");
+			   System.out.println(registro4.toString());			   
 			   System.out.println();
 			   
 			   //Leemos un numero de registro que es superior al maximo de registros.
 			   archivoBibliotecas.leerRegistro(100);
-			   RegistroBiblioteca registro4 = (RegistroBiblioteca)archivoBibliotecas.getRegistro();
-			   System.out.println("Datos registro 100: ");
-			   System.out.println(registro4.toString());
-			   System.out.println("**********************************************************");
+			   RegistroBiblioteca registro5 = (RegistroBiblioteca)archivoBibliotecas.getRegistro();
+			   System.out.println("Datos del registro 100: ");
+			   System.out.println(registro5.toString());
 			   System.out.println();
 			   
-			   //Leemos un numero de registro que tenga posicion valida.
+			   //Leemos un numero de registro que tenga posicion válida.
 			   archivoBibliotecas.leerRegistro(1);
-			   RegistroBiblioteca registro5 = (RegistroBiblioteca)archivoBibliotecas.getRegistro();
-			   System.out.println("Datos registro 1: ");
-			   System.out.println(registro5.toString());
-			   System.out.println("**********************************************************");
+			   RegistroBiblioteca registro6 = (RegistroBiblioteca)archivoBibliotecas.getRegistro();
+			   System.out.println("Datos del registro 1: ");
+			   System.out.println(registro6.toString());
 			   System.out.println();
 			   
 			   //Borramos el registro 0.
 			   archivoBibliotecas.borrarRegistro(0);
-			   System.out.println("Volcado despues de borrar el registro 0: ");
+			   System.out.println("\t\tVolcado despues de borrar el registro 0");
+			   System.out.println();
 			   archivoBibliotecas.volcar();
-			   System.out.println("**********************************************************");
 			   System.out.println();
 			   
 			   //Borrar un registro que no exista.
 			   archivoBibliotecas.borrarRegistro(100);
-			   System.out.println("Volcado despues de borrar el registro 100: ");
+			   System.out.println("\t\tVolcado despues de borrar el registro 100");
+			   System.out.println();
 			   archivoBibliotecas.volcar();
-			   System.out.println("**********************************************************");
 			   System.out.println();
 			   
-			   //Borrar el registro 2.
+			   //Borrar el registro 2 para añadirlo a la lista de huecos.
 			   archivoBibliotecas.borrarRegistro(2);
-			   System.out.println("Volcado despues de borrar el registro 2: ");
+			   System.out.println("\t\tVolcado despues de borrar el registro 2");
+			   System.out.println();
 			   archivoBibliotecas.volcar();
-			   System.out.println("**********************************************************");
 			   System.out.println();
 			   
-			   //Borra de nuevo el registro 2 que estaba ya previamente borrado.
+			   //Borrando un registro que se encuentra ya en la lista de huecos.
 			   archivoBibliotecas.borrarRegistro(2);
-			   System.out.println("Volcado despues de borrar de nuevo el registro 2: ");
+			   System.out.println("\tVolcado despues borrar un registro que está en la lista de huecos");
+			   System.out.println();
 			   archivoBibliotecas.volcar();
-			   System.out.println("**********************************************************");
 			   System.out.println();
 			   
 			   //Borramos el registro3.
 			   archivoBibliotecas.borrarRegistro(3);
-			   System.out.println("Volcado despues de borrar el registro 3: ");
-			   archivoBibliotecas.volcar();
-			   System.out.println("**********************************************************");
+			   System.out.println("\t\tVolcado despues de borrar el registro 3");
 			   System.out.println();
-			    
+			   archivoBibliotecas.volcar();
+			   System.out.println();
 			   
-		   }catch (IOException ioe){
-				System.out.println("Error de entrada/salida sobre archivoLibros: "+ioe.getMessage());
-			}
+		   }
+		   catch (IOException ioe){
+				System.out.println("Error de entrada/salida sobre los archivos: "+ ioe.getMessage());
+		   }
 	   }
 	
 	public static void main(String[] args) {

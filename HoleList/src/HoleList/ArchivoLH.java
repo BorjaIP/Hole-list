@@ -56,10 +56,10 @@ import java.io.IOException;
        public ArchivoLH (RegistroLH registro, String nombreArchivo)throws FileNotFoundException
        {
    		super(registro, nombreArchivo);
-   		registro.setControl(-1); //Decimos que el control pertenece a la lista de huecos
+   		registro.setControl(RegistroLH.FIN_LISTA);		//Indicamos que es el final de la lista.
    		try {
    			super.escribirRegistro(0);
-   		} catch (IOException error) { //Catch de StackOverflow
+   		} catch (IOException error) {		//Catch de StackOverflow.
    			System.out.println("General I/O exception: " + error.getMessage());
    			error.printStackTrace();
    		}
@@ -122,7 +122,7 @@ import java.io.IOException;
 			super.archivo.seek(0);
 			int cabeceraLH = super.archivo.readInt();
 
-			if(cabeceraLH != -1) //Fin de lista
+			if(cabeceraLH != RegistroLH.FIN_LISTA) //Ha de ser distinto de -1.
 			{
 				super.archivo.seek(cabeceraLH*super.registro.longitudRegistro());
 				int cabeceraLHAnterior = super.archivo.readInt();
@@ -132,9 +132,9 @@ import java.io.IOException;
 			else
 				cabeceraLH = (int) this.numRegistros() + 1; 
 
-			super.archivo.seek(cabeceraLH*super.registro.longitudRegistro()); //Para posicionarnos en el control de donde queremos escribir
+			super.archivo.seek(cabeceraLH*super.registro.longitudRegistro());		//Para posicionarnos en el control donde queremos escribir.
 			registro.escribir(archivo);
-			return (int) cabeceraLH; //Devuelve donde has escrito
+			return (int) cabeceraLH;		//Devuelve donde has escrito.
 	   }	
 	
 	   
@@ -158,10 +158,11 @@ import java.io.IOException;
        * @param posicion numero que indica la posicion del registro a borrar.
        */
 	   public void borrarRegistro(int posicion) throws IOException {
-			if(!(posicion < 1 || posicion > this.numRegistros())){
-				super.archivo.seek(posicion*super.registro.longitudRegistro());
+			if(!(posicion < 1 || posicion > this.numRegistros()))
+			{
+				super.archivo.seek(posicion*super.registro.longitudRegistro());		//Nos situamos donde queremos leer el control.
 				int cabeceraPosicion = archivo.readInt();
-				if(cabeceraPosicion == -2)//Si no es -2, ya esta borrado
+				if(cabeceraPosicion == RegistroLH.REGISTRO_OCUPADO)		//Si no es -2, es que ya está borrado el registro.
 				{
 					super.archivo.seek(0);
 					int cabeceraLH = archivo.readInt();
@@ -181,7 +182,7 @@ import java.io.IOException;
 	   * @throws IOException Si se produce un error al realizar la operacion.
 	   */
 	   public long numRegistros() throws IOException {
-			return (archivo.length()/super.registro.longitudRegistro())-1; // -1 porque no debe contabilizar el registro 0
+			return (archivo.length()/super.registro.longitudRegistro())-1;		// -1 porque no debe contabilizar el registro 0.
 	   }
 	
 	   
