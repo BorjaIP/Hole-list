@@ -26,6 +26,8 @@ import java.io.IOException;
 			// correctamente
 			RegistroLibro R = new RegistroLibro();
 			ArchivoLH archivoLibros= new ArchivoLH(R,"libros.dat");
+			//Creamos y abrimos el fichero sin modificarlo.
+			//ArchivoLH archivoLibros= new ArchivoLH(R,"libros.dat","r");
 		    System.out.println("********* volcado del contenido del archivo al crearlo **********************");
 		    archivoLibros.volcar();
 		    System.out.println("*****************************************************************************");
@@ -60,6 +62,22 @@ import java.io.IOException;
 		    System.out.println("***************************************************************************");
 		    System.out.println();
 		    
+		    //Leemos el registro 0.
+		    archivoLibros.leerRegistro(0);
+		    RegistroLibro registro4 = (RegistroLibro)archivoLibros.getRegistro();
+		    System.out.println("***********datos del registro que esta en la posicion 0 ********************");
+			System.out.println(registro4.toString());
+		    System.out.println("***************************************************************************");
+		    System.out.println();
+		    
+		    //Leemos un numero de registro que es superior al maximo de registros.
+		    archivoLibros.leerRegistro(100);
+		    RegistroLibro registro5 = (RegistroLibro)archivoLibros.getRegistro();
+		    System.out.println("***********datos del registro que esta en la posicion 100 *****************");
+			System.out.println(registro5.toString());
+		    System.out.println("***************************************************************************");
+		    System.out.println();
+		    
 		    // EJEMPLO DE LECTURA DE UN REGISTRO QUE EXISTE
 		    archivoLibros.leerRegistro(1);
 		    RegistroLibro registro8 = (RegistroLibro)archivoLibros.getRegistro();
@@ -68,13 +86,40 @@ import java.io.IOException;
 		    System.out.println("***************************************************************************");
 		    System.out.println();
 		      
+		    //Borrado registro 0.
+		    archivoLibros.borrarRegistro(0);
+		    System.out.println("***********volcado despues de borrar el registro de la posicion 0**********");
+			archivoLibros.volcar();
+		    System.out.println("***************************************************************************");
+		    System.out.println();
+		    
+		    //Borrado registro registro que no existe.
+		    archivoLibros.borrarRegistro(100);
+		    System.out.println("***********volcado despues de borrar el registro de la posicion 100**********");
+			archivoLibros.volcar();
+		    System.out.println("***************************************************************************");
+		    System.out.println();
+		    
 		    // EJEMPLO DE BORRADO DE UN REGISTRO QUE EXISTE
 		    archivoLibros.borrarRegistro(2);
 		    System.out.println("***********volcado despues de borrar el registro de la posicion 2**********");
 			archivoLibros.volcar();
 		    System.out.println("***************************************************************************");
 		    System.out.println();
+		    
+		    //Borramos un registro que ya está borrado.
+		    archivoLibros.borrarRegistro(2);
+		    System.out.println("***********volcado despues de borrar de nuevo el registro de la posicion 2**********");
+			archivoLibros.volcar();
+		    System.out.println("***************************************************************************");
+		    System.out.println();
 
+		    //Borrado registro 3.
+		    archivoLibros.borrarRegistro(3);
+		    System.out.println("***********volcado despues de borrar el registro de la posicion 3**********");
+			archivoLibros.volcar();
+		    System.out.println("***************************************************************************");
+		    System.out.println();
 		    
 		    // EJEMPLO DE CIERRE DEL ARCHIVO DE LIBROS
 		    archivoLibros.cerrarArchivo();
@@ -85,57 +130,57 @@ import java.io.IOException;
 		     * 	- constructor de ArchivoLH que CREA el fichero. Situaciones:
 		     * 		- el fichero no existe. Validar que lo crea y que el archivo contiene el registro 0 completo (con todos los
 		     *        campos de un registro de tipo RegistroLibro) y con el campo control a -1.
-		     *        
+		     *        //DONE
 		     *        
 		     *      - el fichero existe. Validar que borra su contenido y que el archivo contiene el registro 0 completo (con todos los
 		     *        campos de un registro de tipo RegistroLibro) y con el campo control a -1.
-		     *        
+		     *        //DONE
 		     *        
 		     *  - constructor de ArchivoLH que ABRE el fichero. Situaciones:
 		     *  	- El fichero de registros existe. Validar que su contenido es exactamente el mismo que la ultima vez que 
 		     *        se trabajo con el.
-		     *        
+		     *        //DONE
 		     *        
 		     *      - El fichero de registros no existe. Debe saltar la excepcion FileNotFoundException que debera capturarse e
 		     *        indicar por la consola esta situacion mediante un mensaje de error.
-		     *        
+		     *        //DONE
 		     *        
 		     *  - escribirRegistro. Situaciones:
 		     *      - La lista de huecos esta vacia. Validar que el registro se ha incluido como ultimo registro del fichero y que
 		     *        el valor devuelto por el metodo es correcto.
-		     *        
+		     *        //DONE
 		     *        
 		     *      - La lista de huecos NO esta vacia. Validar que el registro se ha incluido en la posicion indicada por la
 		     *        cabecera de la lista de huecos y que esta se ha actualizado convenientemente. Ademas, debera comprobarse que 
 		     *        el valor devuelto por el metodo es correcto.
-		     *        
+		     *        //DONE
 		     *        
 		     *  - leerRegistro. Situaciones:
 		     *  	- leer el registro 0. Validar que los datos que devuelve son del ultimo registro del fichero.
-		     *  
+		     *  	  //DONE
 		     *  
 		     *      - leer un registro que se encuentre en una posicion superior al numero de registros del fichero. Validar que 
 		     *        los datos que devuelve son del ultimo registro del fichero.
-		     *        
+		     *        //DONE
 		     *        
 		     *      - leer un registro que se encuentre en una posicion valida.  Validar que los datos que devuelve son los asociados
 		     *        al registro almacenado en la posicion indicada.
-		     *        
+		     *        //DONE
 		     *        
 		     *  - borrarRegistro. Situaciones:
 		     *      - borrar el registro 0. Validar que no tiene ningun efecto sobre el fichero.
-		     *      
+		     *        //DONE
 		     *      
 		     *      - borrar un registro que se encuentre en una posicion superior al numero de registros del fichero.Validar que no 
 		     *        tiene ningun efecto sobre el fichero.
-		     *        
+		     *        //DONE
 		     *        
 		     *      - borrar un registro que se encuentre en la lista de huecos. Validar que no tiene ningun efecto sobre el fichero.
-		     *      
+		     *        //DONE
 		     *      
 		     *      - borrar un registro que se encuentre en una posicion valida y que contenga informacion util (que no esta en la
 		     *        lista de huecos).
-		     *         
+		     *        //DONE 
 		     */
 		    
 		}catch (IOException ioe){

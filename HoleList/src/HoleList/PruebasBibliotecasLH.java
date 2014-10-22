@@ -174,6 +174,8 @@ import java.io.IOException;
 			   archivoBibliotecas.volcar();
 			   System.out.println();
 			   
+			   //Cerrar el fichero.
+			   archivoBibliotecas.cerrarArchivo();
 		   }
 		   catch (IOException ioe){
 				System.out.println("Error de entrada/salida sobre archivoLibros: "+ ioe.getMessage());

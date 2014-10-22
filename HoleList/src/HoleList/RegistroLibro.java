@@ -21,6 +21,8 @@ import java.io.RandomAccessFile;
 	   * Numero de caracteres del campo <code>tipo</code>.
 	   */
 	   public static final int TAMANIO_TIPO = 25; 
+	   
+	   private static final int TAMANIO_NUMPAGINAS = (Integer.SIZE/8) ;
 	    
 	   //Inicialización de las variables.
 	   private String titulo;
@@ -122,7 +124,7 @@ import java.io.RandomAccessFile;
 	   */	
 	   public int longitudRegistro()
 	   {
-		   return RegistroLibro.TAMANIO_TITULO*2 + RegistroLibro.TAMANIO_TIPO*2 + super.longitudRegistro();
+		   return RegistroLibro.TAMANIO_TITULO*2 + RegistroLibro.TAMANIO_TIPO*2 + RegistroLibro.TAMANIO_NUMPAGINAS + super.longitudRegistro();
 	   } 
 	   
    
@@ -147,7 +149,7 @@ import java.io.RandomAccessFile;
 	   * @see RegistroNumReg
 	   */
 	   public void leer(RandomAccessFile archivo) throws IOException {	
-		   super.leer(archivo);    	   
+		   super.leer(archivo);  
     	   this.setTitulo(this.leerCadena(RegistroLibro.TAMANIO_TITULO, archivo));
     	   this.setTipo(this.leerCadena(RegistroLibro.TAMANIO_TIPO, archivo));
     	   this.setNumPaginas(archivo.readInt());
