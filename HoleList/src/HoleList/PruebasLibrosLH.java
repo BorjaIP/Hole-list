@@ -19,35 +19,27 @@ import java.io.IOException;
 	   public PruebasLibrosLH(){
 
 		try{
-			// EJEMPLO DE CREACION DE UN ARCHIVO DE REGISTROS DE LIBROS NUEVO
-			// Creamos un objeto del tipo de registro que manejara este archivo: RegistroLibro.
-			// Creamos un objeto ArchivoLH asociado a un fichero nuevo para registros de tipo RegistroLibro
-			// Volcamos el fichero por la consola para comproibar que la creacion del fichero se ha realizado
-			// correctamente
+			//Creamos el fichero en blanco, sin registros.
 			RegistroLibro R = new RegistroLibro();
 			ArchivoLH archivoLibros= new ArchivoLH(R,"libros.dat");
 			//Creamos y abrimos el fichero sin modificarlo.
 			//ArchivoLH archivoLibros= new ArchivoLH(R,"libros.dat","r");
-		    System.out.println("********* volcado del contenido del archivo al crearlo **********************");
-		    archivoLibros.volcar();
-		    System.out.println("*****************************************************************************");
-		    System.out.println();
+			System.out.println("\t\tVolcando el contenido del archivo");
+			System.out.println();
+			archivoLibros.volcar();
+			System.out.println();
 		    
-            // EJEMPLO DE INSERCION DE UN NUEVO REGISTRO
-		    // Creamos el objeto de tipo RegistroLibro con los datos a insertar, hacemos que la propiedad registro de
-		    // ArchivoLH apunte a este registro y finalmente lo escribimos en el
-		    // archivo. Volcamos el fichero por la consola para comprobar que la insercion
-		    // del registro se ha realizado correctamente
+			//Creamos el primer registro.
 		    RegistroLibro registro1 = new RegistroLibro(40, "Nivel 5", "novela negra", 496);
             registro1.setControl(RegistroLH.REGISTRO_OCUPADO);
 		    archivoLibros.setRegistro(registro1);
 		    archivoLibros.escribirRegistro();		    
-		    System.out.println("***********volcado despues de aniadir el primer registro********************");
+		    System.out.println("\t\tVolcando registro 1");
+			System.out.println();
 			archivoLibros.volcar();
-		    System.out.println("***************************************************************************");
-		    System.out.println();
+			System.out.println();
    
-            // EJEMPLO DE INSERCION DE DOS REGISTROS MAS		    
+            //Creamos otros dos registros para probar que la lista no está vacia.		    
 		    RegistroLibro registro2 = new RegistroLibro(10, "Viaje en el tiempo 5", "infantil", 400);
             registro2.setControl(RegistroLH.REGISTRO_OCUPADO);
 		    archivoLibros.setRegistro(registro2);
@@ -57,74 +49,70 @@ import java.io.IOException;
             registro3.setControl(RegistroLH.REGISTRO_OCUPADO);
 		    archivoLibros.setRegistro(registro3);
 		    archivoLibros.escribirRegistro();	
-		    System.out.println("***********volcado despues de aniadir tres registros************************");
+		    System.out.println("\t\tVolcando los tres registros");
+			System.out.println();
 			archivoLibros.volcar();
-		    System.out.println("***************************************************************************");
-		    System.out.println();
-		    
+			System.out.println();
+			
 		    //Leemos el registro 0.
 		    archivoLibros.leerRegistro(0);
 		    RegistroLibro registro4 = (RegistroLibro)archivoLibros.getRegistro();
-		    System.out.println("***********datos del registro que esta en la posicion 0 ********************");
-			System.out.println(registro4.toString());
-		    System.out.println("***************************************************************************");
-		    System.out.println();
-		    
+		    System.out.println("Datos del registro 0: ");
+		    System.out.println(registro4.toString());			   
+			System.out.println();
+			   
 		    //Leemos un numero de registro que es superior al maximo de registros.
 		    archivoLibros.leerRegistro(100);
 		    RegistroLibro registro5 = (RegistroLibro)archivoLibros.getRegistro();
-		    System.out.println("***********datos del registro que esta en la posicion 100 *****************");
-			System.out.println(registro5.toString());
-		    System.out.println("***************************************************************************");
-		    System.out.println();
+		    System.out.println("Datos del registro 100: ");
+		    System.out.println(registro5.toString());			   
+			System.out.println();
 		    
-		    // EJEMPLO DE LECTURA DE UN REGISTRO QUE EXISTE
+			//Leemos un numero de registro que tenga posicion válida.
 		    archivoLibros.leerRegistro(1);
-		    RegistroLibro registro8 = (RegistroLibro)archivoLibros.getRegistro();
-		    System.out.println("***********datos del registro que esta en la posicion 1 ********************");
-			System.out.println(registro8.toString());
-		    System.out.println("***************************************************************************");
-		    System.out.println();
+		    RegistroLibro registro6 = (RegistroLibro)archivoLibros.getRegistro();
+		    System.out.println("Datos del registro 100: ");
+		    System.out.println(registro6.toString());			   
+			System.out.println();
 		      
 		    //Borrado registro 0.
 		    archivoLibros.borrarRegistro(0);
-		    System.out.println("***********volcado despues de borrar el registro de la posicion 0**********");
-			archivoLibros.volcar();
-		    System.out.println("***************************************************************************");
+		    System.out.println("\t\tVolcado despues de borrar el registro 0");
 		    System.out.println();
+			archivoLibros.volcar();
+			System.out.println();
 		    
 		    //Borrado registro registro que no existe.
 		    archivoLibros.borrarRegistro(100);
-		    System.out.println("***********volcado despues de borrar el registro de la posicion 100**********");
-			archivoLibros.volcar();
-		    System.out.println("***************************************************************************");
+		    System.out.println("\t\tVolcado despues de borrar el registro 100");
 		    System.out.println();
+			archivoLibros.volcar();
+			System.out.println();
 		    
-		    // EJEMPLO DE BORRADO DE UN REGISTRO QUE EXISTE
+			//Borrar el registro 2 para añadirlo a la lista de huecos.
 		    archivoLibros.borrarRegistro(2);
-		    System.out.println("***********volcado despues de borrar el registro de la posicion 2**********");
-			archivoLibros.volcar();
-		    System.out.println("***************************************************************************");
+		    System.out.println("\t\tVolcado despues de borrar el registro 2");
 		    System.out.println();
+			archivoLibros.volcar();
+			System.out.println();
 		    
-		    //Borramos un registro que ya está borrado.
+			//Borrando un registro que se encuentra ya en la lista de huecos.
 		    archivoLibros.borrarRegistro(2);
-		    System.out.println("***********volcado despues de borrar de nuevo el registro de la posicion 2**********");
-			archivoLibros.volcar();
-		    System.out.println("***************************************************************************");
+		    System.out.println("\tVolcado despues borrar un registro que está en la lista de huecos");
 		    System.out.println();
+			archivoLibros.volcar();
+			System.out.println();
 
 		    //Borrado registro 3.
 		    archivoLibros.borrarRegistro(3);
-		    System.out.println("***********volcado despues de borrar el registro de la posicion 3**********");
-			archivoLibros.volcar();
-		    System.out.println("***************************************************************************");
+		    System.out.println("\t\tVolcado despues de borrar el registro 3");
 		    System.out.println();
+			archivoLibros.volcar();
+			System.out.println();
 		    
-		    // EJEMPLO DE CIERRE DEL ARCHIVO DE LIBROS
+			//Cerrar el fichero.
 		    archivoLibros.cerrarArchivo();
 
-		    
 		    /**
 		     * Deberan probarse los siguientes metodos en las situaciones indicadas
 		     * 	- constructor de ArchivoLH que CREA el fichero. Situaciones:
@@ -184,9 +172,8 @@ import java.io.IOException;
 		     */
 		    
 		}catch (IOException ioe){
-			System.out.println("Error de entrada/salida sobre archivoLibros: "+ioe.getMessage());
-		}
-		
+		 	System.out.println("Error de entrada/salida sobre archivoLibros: "+ioe.getMessage());
+		 }
 	   }
 	
 	public static void main(String[] args) {
